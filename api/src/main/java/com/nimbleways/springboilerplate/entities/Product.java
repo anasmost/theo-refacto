@@ -1,11 +1,21 @@
 package com.nimbleways.springboilerplate.entities;
 
-import lombok.*;
-
 import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-
+@EntityListeners(ProductListener.class)
 @Entity
 @Getter
 @Setter
@@ -25,7 +35,8 @@ public class Product {
     private Integer available;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private ProductType type;
 
     @Column(name = "name")
     private String name;
@@ -38,4 +49,8 @@ public class Product {
 
     @Column(name = "season_end_date")
     private LocalDate seasonEndDate;
+
+    public static enum ProductType {
+        NORMAL, SEASONAL, EXPIRABLE
+    }
 }
